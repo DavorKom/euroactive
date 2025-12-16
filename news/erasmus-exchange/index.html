@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News: Digital Skills Workshop | Euroactive Croatia</title>
+    <title>News: Erasmus+ Youth Exchange 2025 | Euroactive Croatia</title> 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
 
     <header>
         <div class="container navbar">
             <div class="logo">
-                <img src="1000020516.jpg" alt="Euroactive Croatia Logo">
+                <a href="../../index.html" ><img src="https://res.cloudinary.com/dbadf3uqv/image/upload/f_webp/q_auto:best/logo_rg3cwq.jpg" alt="Euroactive Croatia Logo"></a>
             </div>
             <div class="menu-toggle" onclick="toggleMenu()">
                 <i class="fas fa-bars"></i>
             </div>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#about">About Us</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="../../index.html" onclick="toggleMenu()">HOME</a></li>
+                <li><a href="../../index.html#about" onclick="toggleMenu()">ABOUT US</a></li>
+                <li><a href="#contact" onclick="toggleMenu()">CONTACT</a></li>
             </ul>
         </div>
     </header>
@@ -31,7 +31,7 @@
         <div class="container news-article">
             <h1>Erasmus+ Youth Exchange 2025: Building Bridges in Split</h1>
             
-            <img src="https://picsum.photos/id/1015/1200/600" alt="Lead image for youth exchange" style="width:100%; height:auto; border-radius:8px; margin-bottom: 30px;">
+            <img src="https://res.cloudinary.com/dbadf3uqv/image/upload/f_webp/q_auto:best/orahovica_oazrzp.jpg" alt="Lead image for youth exchange"> 
             
             <p style="font-style: italic; color: #777;">Published: October 10, 2025</p>
             
@@ -46,16 +46,20 @@
             <h2>Event Gallery Highlights</h2>
 
             <div class="gallery-container">
-                <div class="gallery-item">
-                    <img src="https://picsum.photos/id/160/400/300" alt="Gallery photo 1">
+                
+                <div class="gallery-item" onclick="openModal('https://res.cloudinary.com/dbadf3uqv/image/upload/f_webp/q_auto:best/uyp_sjl6ge.jpg', 'Gallery photo 1: Workshop in session')">
+                    <img src="https://res.cloudinary.com/dbadf3uqv/image/upload/f_webp/q_auto:good/uyp_sjl6ge.jpg" alt="Gallery photo 1">
                 </div>
-                <div class="gallery-item">
+                
+                <div class="gallery-item" onclick="openModal('https://picsum.photos/id/169/1400/900', 'Gallery photo 2: Group discussion')">
                     <img src="https://picsum.photos/id/169/400/300" alt="Gallery photo 2">
                 </div>
-                <div class="gallery-item">
+                
+                <div class="gallery-item" onclick="openModal('https://picsum.photos/id/170/1400/900', 'Gallery photo 3: Team collaboration')">
                     <img src="https://picsum.photos/id/170/400/300" alt="Gallery photo 3">
                 </div>
-                <div class="gallery-item">
+                
+                <div class="gallery-item" onclick="openModal('https://picsum.photos/id/180/1400/900', 'Gallery photo 4: Evening social event')">
                     <img src="https://picsum.photos/id/180/400/300" alt="Gallery photo 4">
                 </div>
             </div>
@@ -73,16 +77,16 @@
 
     <section id="contact">
         <div class="container">
-            <h2 class="section-title">Contact Us</h2>
+            <h2 class="section-title">CONTACT US</h2>
             <div class="contact-container">
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
-                    <a href="mailto:info@euroactive.hr">info@euroactive.hr</a>
+                    <a href="mailto:euroactive.hrvatska@hotmail.com">euroactive.hrvatska@hotmail.com</a>
                 </div>
                 
                 <div class="social-icons">
-                    <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com/p/Euroactive-Hrvatska-61568646634353/" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com/euroactive_hrvatska" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
@@ -94,6 +98,11 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <div id="image-modal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modal-image">
+        <div id="caption"></div>
+    </div>
+    <script src="../../script.js"></script>
 </body>
 </html>

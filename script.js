@@ -86,3 +86,30 @@ if (slides.length > 0) {
     // Start auto-play
     slideInterval = setInterval(autoAdvance, intervalTime);
 }
+
+// Function to open the modal and display the image
+function openModal(imageSrc, imageAlt) {
+    const modal = document.getElementById("image-modal");
+    const modalImg = document.getElementById("modal-image");
+    const captionText = document.getElementById("caption");
+    
+    // Show the modal
+    modal.style.display = "block";
+    
+    // Set the image source and alt text for the full image
+    modalImg.src = imageSrc;
+    captionText.innerHTML = imageAlt;
+}
+
+// Function to close the modal
+function closeModal() {
+    const modal = document.getElementById("image-modal");
+    modal.style.display = "none";
+}
+
+// Optional: Allow closing the modal by pressing the ESC key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+});
