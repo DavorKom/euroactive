@@ -88,17 +88,15 @@ if (slides.length > 0) {
 }
 
 // Function to open the modal and display the image
-function openModal(imageSrc, imageAlt) {
+function openModal(imageSrc) {
     const modal = document.getElementById("image-modal");
     const modalImg = document.getElementById("modal-image");
-    const captionText = document.getElementById("caption");
     
     // Show the modal
-    modal.style.display = "block";
+    modal.style.display = "flex";
     
     // Set the image source and alt text for the full image
     modalImg.src = imageSrc;
-    captionText.innerHTML = imageAlt;
 }
 
 // Function to close the modal
