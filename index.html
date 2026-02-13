@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Euroactive Croatia</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <link rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+      crossorigin="anonymous" 
+      referrerpolicy="no-referrer" />
+      
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -31,34 +35,36 @@
         <span class="prev" onclick="plusSlides(-1)"><i class="fas fa-chevron-left"></i></span>
         <span class="next" onclick="plusSlides(1)"><i class="fas fa-chevron-right"></i></span>
         
-        <a href="news/erasmus-exchange/" class="slide active" style="background-image: url('https://res.cloudinary.com/dbadf3uqv/image/upload/f_webp/q_auto:best/orahovica_oazrzp.jpg'); background-size: cover; background-position: center;">
-            <div class="slide-content">
-                <h2>Erasmus+ Youth Exchange 2025</h2>
-                <p>Join us for our upcoming youth exchange program in Split.</p>
-                <span class="btn-style">Read More</span>
-            </div>
-        </a>
+        <div class="carousel-track">
+            <a href="news/unlock-your-potential/" class="slide active" style="background-image: url('https://res.cloudinary.com/dbadf3uqv/image/upload/f_webp/q_auto:best/orahovica_oazrzp.jpg'); background-size: cover; background-position: center;">
+                <div class="slide-content">
+                    <h2>Unlock Your Potential</h2>
+                    <p>Developing Soft Skills for Employability</p>
+                    <span class="btn-style">Read More</span>
+                </div>
+            </a>
 
-        <a href="news/erasmus-exchange/" class="slide" style="background-image: url('https://res.cloudinary.com/dbadf3uqv/image/upload/f_webp/q_auto:best/uyp_sjl6ge.jpg');">
-            <div class="slide-content">
-                <h2>New Workshop: Digital Skills</h2>
-                <p>Master digital tools for the modern workplace with our free workshop.</p>
-                <span class="btn-style">Apply Now</span>
-            </div>
-        </a>
+            <a href="news/appetiser-trening-course/" class="slide" style="background-image: url('https://res.cloudinary.com/dbadf3uqv/image/upload/v1770987288/rome_kghfzf.jpg');">
+                <div class="slide-content">
+                    <h2>APPETISER</h2>
+                    <p>An introduction to international youth work</p>
+                    <span class="btn-style">Read More</span>
+                </div>
+            </a>
 
-        <a href="news/erasmus-exchange/" class="slide" style="background-image: url('https://picsum.photos/id/1059/1200/800');">
-            <div class="slide-content">
-                <h2>Volunteers Needed!</h2>
-                <p>Help us organize our annual community clean-up event.</p>
-                <span class="btn-style">Join Us</span>
-            </div>
-        </a>
+            <!-- <a href="news/side-of-intelligence/" class="slide" style="background-image: url('https://picsum.photos/id/1059/1200/800');">
+                <div class="slide-content">
+                    <h2>Side of Intelligence</h2>
+                    <p>Trening course about Artifical Intelligence in Youth Work</p>
+                    <span class="btn-style">Read More</span>
+                </div>
+            </a> -->
+        </div>
 
         <div class="carousel-dots">
             <span class="dot active" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
+            <!-- <span class="dot" onclick="currentSlide(3)"></span> -->
         </div>
     </section>
 
@@ -83,12 +89,12 @@
             <div class="contact-container">
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
-                    <a href="mailto:euroactive.hrvatska@hotmail.com">euroactive.hrvatska@hotmail.com</a>
+                    <span id="email-place"></span> 
                 </div>
                 
                 <div class="social-icons">
-                    <a href="https://facebook.com/p/Euroactive-Hrvatska-61568646634353/" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="https://instagram.com/euroactive_hrvatska" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com/p/Euroactive-Hrvatska-61568646634353/" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com/euroactive_hrvatska" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
@@ -102,4 +108,4 @@
 
     <script src="script.js"></script>
 </body>
-</html> 
+</html>

@@ -83,8 +83,60 @@ header {
 .carousel-section {
     position: relative;
     background-color: var(--primary-blue);
-    height: 500px; /* Increased height for better image visibility */
-    overflow: hidden;
+    height: 500px;
+    overflow: hidden; /* This hides the slides that are off-screen */
+}
+
+/* NEW: The moving container that holds all slides side-by-side */
+.carousel-track {
+    display: flex; /* Lines up slides horizontally */
+    height: 100%;
+    width: 100%;
+    transition: transform 0.5s ease-in-out; /* The smooth sliding animation */
+}
+
+.slide {
+    position: relative; 
+    
+    /* KEY FIX: Forces the slide to stay 100% wide and not shrink */
+    min-width: 100%;
+    flex: 0 0 100%; 
+    
+    height: 100%;
+    
+    /* Flexbox to center the text content */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    
+    /* Background settings */
+    background-size: cover;
+    background-position: center;
+    
+    /* Text color settings */
+    color: var(--white);
+    text-decoration: none; 
+}
+
+/* Remove the old opacity transition logic */
+.slide.active {
+    opacity: 1; 
+    /* We don't need opacity changes anymore, the slide logic is handled by moving the track */
+}
+
+/* Keep the rest (overlay, content, arrows) same as before */
+.slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(23, 71, 126, 0.5);
+    z-index: 1;
 }
 
 /* --- CAROUSEL NAVIGATION ARROWS (NEW STYLES) --- */
@@ -118,27 +170,20 @@ header {
 
 /* The Slide is now an Anchor tag (Link) */
 .slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    position: relative; 
+    min-width: 100%;
+    flex: 0 0 100%; 
     height: 100%;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 20px;
-    
-    /* Background Image Settings */
     background-size: cover;
     background-position: center;
-    
-    /* Text color settings */
     color: var(--white);
-    text-decoration: none; /* Removes underline from the whole block */
+    text-decoration: none; 
 }
 
 /* Dark overlay to make text readable on background images */
@@ -150,25 +195,15 @@ header {
     width: 100%;
     height: 100%;
     /* Semi-transparent blue overlay */
-    background: rgba(23, 71, 126, 0.7); 
+    background: rgba(23, 71, 126, 0.5);
     z-index: 1;
     transition: background 0.3s;
-}
-
-/* Hover effect: Lighten overlay slightly to indicate clickability */
-.slide:hover::before {
-    background: rgba(23, 71, 126, 0.6); 
 }
 
 .slide-content {
     position: relative;
     z-index: 2;
     max-width: 800px;
-}
-
-.slide.active {
-    opacity: 1;
-    z-index: 2; /* Ensures active slide is clickable */
 }
 
 .slide h2 {
@@ -434,4 +469,83 @@ footer {
     object-fit: contain; 
     border-radius: 5px;
     padding: 10px; 
+}
+
+/* The Close Button (Top Right) */
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2002; /* Higher than modal content */
+    transition: 0.3s;
+}
+
+.close-modal:hover {
+    color: #bbb;
+}
+
+/* Modal Previous & Next Arrows */
+.modal-prev,
+.modal-next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    z-index: 2002;
+}
+
+/* Position the "Next" button to the right */
+.modal-next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* Position the "Prev" button to the left */
+.modal-prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background with a little transparency */
+.modal-prev:hover,
+.modal-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.news-article p a {
+    color: var(--primary-blue); /* Uses your brand blue */
+    font-weight: 600;           /* Makes it slightly bolder to catch the eye */
+    text-decoration: none;      /* Removes the default ugly underline */
+    transition: all 0.3s ease;  /* Smooth transition for the hover effect */
+    padding: 0 2px;             /* Tiny bit of breathing room around the text */
+}
+
+.news-article p a:hover {
+    color: var(--accent-red);    /* Changes to brand red on hover */
+    border-radius: 3px;
+}
+
+.contact-item a {
+    color: var(--primary-blue); /* Uses your brand blue */
+    font-weight: 600;           /* Makes it slightly bolder to catch the eye */
+    text-decoration: none;      /* Removes the default ugly underline */
+    transition: all 0.3s ease;  /* Smooth transition for the hover effect */
+    padding: 0 2px;             /* Tiny bit of breathing room around the text */
+}
+
+.contact-item a:hover {
+    color: var(--accent-red);    /* Changes to brand red on hover */
+    border-radius: 3px;
 }
