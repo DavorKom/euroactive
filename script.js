@@ -143,8 +143,8 @@ document.addEventListener('keydown', function(event) {
 });
 
 // This assembles the email so bots can't scrape it easily
-const user = "euroactive.hrvatska";
-const domain = "hotmail.com";
+const user = "contact";
+const domain = "euroactive.hr";
 const emailElement = document.getElementById("email-place");
 
 if(emailElement) {
