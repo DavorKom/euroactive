@@ -7,6 +7,20 @@
     --text-dark: #333333;
 }
 
+/* --- PERFORMANCE FIX: Font-Display Swap --- */
+/* This prevents the "Invisible Text" warning in Lighthouse for icons */
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-display: swap;
+  src: local('Font Awesome 6 Free');
+}
+
+@font-face {
+  font-family: 'Font Awesome 6 Brands';
+  font-display: swap;
+  src: local('Font Awesome 6 Brands');
+}
+
 /* --- GLOBAL STYLES --- */
 * {
     margin: 0;
@@ -47,9 +61,11 @@ header {
     height: 80px;
 }
 
+/* Optimized Logo Sizing for CLS and Performance */
 .logo img {
     height: 60px; 
-    width: auto;
+    width: 96px;
+    aspect-ratio: 168 / 105; 
 }
 
 .nav-links {
@@ -71,12 +87,15 @@ header {
     color: var(--accent-red);
 }
 
-/* Mobile Menu Button */
+/* Mobile Menu Button - Optimized Tap Target */
 .menu-toggle {
     display: none;
     font-size: 1.5rem;
     color: var(--primary-blue);
     cursor: pointer;
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 /* --- HERO / NEWS CAROUSEL SECTION --- */
@@ -84,91 +103,16 @@ header {
     position: relative;
     background-color: var(--primary-blue);
     height: 500px;
-    overflow: hidden; /* This hides the slides that are off-screen */
+    overflow: hidden;
 }
 
-/* NEW: The moving container that holds all slides side-by-side */
 .carousel-track {
-    display: flex; /* Lines up slides horizontally */
-    height: 100%;
-    width: 100%;
-    transition: transform 0.5s ease-in-out; /* The smooth sliding animation */
-}
-
-.slide {
-    position: relative; 
-    
-    /* KEY FIX: Forces the slide to stay 100% wide and not shrink */
-    min-width: 100%;
-    flex: 0 0 100%; 
-    
-    height: 100%;
-    
-    /* Flexbox to center the text content */
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    
-    /* Background settings */
-    background-size: cover;
-    background-position: center;
-    
-    /* Text color settings */
-    color: var(--white);
-    text-decoration: none; 
-}
-
-/* Remove the old opacity transition logic */
-.slide.active {
-    opacity: 1; 
-    /* We don't need opacity changes anymore, the slide logic is handled by moving the track */
-}
-
-/* Keep the rest (overlay, content, arrows) same as before */
-.slide::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
     height: 100%;
-    background: rgba(23, 71, 126, 0.5);
-    z-index: 1;
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
 }
 
-/* --- CAROUSEL NAVIGATION ARROWS (NEW STYLES) --- */
-.prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: var(--white);
-    font-weight: bold;
-    font-size: 20px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    background-color: rgba(0,0,0,0.3);
-    z-index: 10; /* Above the slides and dots */
-}
-
-/* Position the "next" arrow on the right */
-.next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-/* Hover effect */
-.prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.6);
-}
-
-/* The Slide is now an Anchor tag (Link) */
 .slide {
     position: relative; 
     min-width: 100%;
@@ -186,7 +130,7 @@ header {
     text-decoration: none; 
 }
 
-/* Dark overlay to make text readable on background images */
+/* Dark overlay to make text readable */
 .slide::before {
     content: '';
     position: absolute;
@@ -194,7 +138,6 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Semi-transparent blue overlay */
     background: rgba(23, 71, 126, 0.5);
     z-index: 1;
     transition: background 0.3s;
@@ -218,7 +161,6 @@ header {
     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
-/* Fake button style for "Read More" */
 .btn-style {
     display: inline-block;
     background-color: var(--accent-red);
@@ -232,6 +174,33 @@ header {
 .slide:hover .btn-style {
     background-color: #b01530;
     transform: scale(1.05);
+}
+
+/* Carousel Navigation Arrorws */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.6);
 }
 
 /* Carousel Indicators */
@@ -321,6 +290,8 @@ header {
     color: var(--primary-blue);
     transition: transform 0.3s, color 0.3s;
     display: inline-block;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .social-icons a:hover {
@@ -333,46 +304,24 @@ footer {
     color: var(--white);
     text-align: center;
     padding: 20px 0;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
-/* --- MEDIA QUERIES --- */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        background-color: var(--white);
-        box-shadow: 0 5px 5px rgba(0,0,0,0.1);
-        text-align: center;
-        padding: 20px 0;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links li {
-        margin: 15px 0;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    .slide h2 {
-        font-size: 1.8rem;
-    }
+/* --- SEO & ACCESSIBILITY HELPER --- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
-/* --- NEWS DETAIL PAGE STYLES (For news-detail.html) --- */
-
+/* --- NEWS DETAIL PAGE STYLES --- */
 .news-article {
-    /* **FIX HERE: Changed the horizontal padding from 0 to 20px** */
-    /* This ensures a 20px buffer on the left and right of the news content */
     padding: 40px 20px; 
 }
 
@@ -380,7 +329,6 @@ footer {
     color: var(--primary-blue);
     font-size: 2.5rem;
     margin-bottom: 20px;
-    /* Optional: Scale down the title size for better mobile reading */
 }
 
 .news-article p {
@@ -389,21 +337,11 @@ footer {
     color: var(--text-dark);
 }
 
-/* Rule 1: Target the primary image immediately inside the news-article container */
 .news-article > img {
-    /* Ensures the image always takes up the full width of its parent container (.container) */
     width: 100%; 
-    
-    /* Makes the image height adjust automatically to maintain its aspect ratio */
     height: auto; 
-    
-    /* Sets a consistent maximum height for uniformity across different articles */
     max-height: 450px; 
-    
-    /* Prevents the image from being stretched or squished if max-height is used */
     object-fit: cover; 
-    
-    /* Adds rounded corners and margin, matching your inline style */
     border-radius: 8px;
     margin-bottom: 30px;
 }
@@ -429,23 +367,19 @@ footer {
     transform: scale(1.02);
 }
 
-/* Add a responsive adjustment for the title inside the media query for the best look */
-@media (max-width: 768px) {
-    /* ... (rest of the media query code remains the same) ... */
-    
-    .slide h2 {
-        font-size: 1.8rem;
-    }
-
-    /* **NEW: Add mobile-specific font size for the H1 on the detail page** */
-    .news-article h1 {
-        font-size: 2rem; 
-    }
+.news-article p a, .contact-item a {
+    color: var(--primary-blue);
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-/* The Modal (background) */
+.news-article p a:hover, .contact-item a:hover {
+    color: var(--accent-red);
+}
+
+/* --- MODAL STYLES --- */
 .modal {
-    display: none; /* Keep this initial state */
+    display: none;
     position: fixed; 
     z-index: 2000; 
     left: 0;
@@ -453,25 +387,20 @@ footer {
     width: 100%; 
     height: 100%; 
     background-color: rgba(0,0,0,0.9); 
-
-    /* === Flexbox Centering === */
-    align-items: center;   /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    overflow: auto;        /* Allows the content to scroll if it exceeds the viewport */
-    /* Padding is NOT needed here */
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
 }
 
-/* Modal Content (The Image) */
 .modal-content {
     width: auto; 
     max-width: 95%; 
-    max-height: 90vh; /* Keeps vertical scrolling to a minimum */
+    max-height: 90vh;
     object-fit: contain; 
     border-radius: 5px;
     padding: 10px; 
 }
 
-/* The Close Button (Top Right) */
 .close-modal {
     position: absolute;
     top: 20px;
@@ -480,17 +409,11 @@ footer {
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
-    z-index: 2002; /* Higher than modal content */
+    z-index: 2002;
     transition: 0.3s;
 }
 
-.close-modal:hover {
-    color: #bbb;
-}
-
-/* Modal Previous & Next Arrows */
-.modal-prev,
-.modal-next {
+.modal-prev, .modal-next {
     cursor: pointer;
     position: absolute;
     top: 50%;
@@ -501,63 +424,32 @@ footer {
     font-weight: bold;
     font-size: 30px;
     transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
     z-index: 2002;
 }
 
-/* Position the "Next" button to the right */
-.modal-next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
+.modal-next { right: 0; border-radius: 3px 0 0 3px; }
+.modal-prev { left: 0; border-radius: 3px 0 0 3px; }
+.modal-prev:hover, .modal-next:hover { background-color: rgba(0, 0, 0, 0.8); }
 
-/* Position the "Prev" button to the left */
-.modal-prev {
-    left: 0;
-    border-radius: 3px 0 0 3px;
-}
+/* --- MEDIA QUERIES --- */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+        text-align: center;
+        padding: 20px 0;
+    }
 
-/* On hover, add a black background with a little transparency */
-.modal-prev:hover,
-.modal-next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
+    .nav-links.active { display: flex; }
+    .nav-links li { margin: 15px 0; }
+    .menu-toggle { display: block; }
 
-.news-article p a {
-    color: var(--primary-blue); /* Uses your brand blue */
-    font-weight: 600;           /* Makes it slightly bolder to catch the eye */
-    text-decoration: none;      /* Removes the default ugly underline */
-    transition: all 0.3s ease;  /* Smooth transition for the hover effect */
-    padding: 0 2px;             /* Tiny bit of breathing room around the text */
-}
-
-.news-article p a:hover {
-    color: var(--accent-red);    /* Changes to brand red on hover */
-    border-radius: 3px;
-}
-
-.contact-item a {
-    color: var(--primary-blue); /* Uses your brand blue */
-    font-weight: 600;           /* Makes it slightly bolder to catch the eye */
-    text-decoration: none;      /* Removes the default ugly underline */
-    transition: all 0.3s ease;  /* Smooth transition for the hover effect */
-    padding: 0 2px;             /* Tiny bit of breathing room around the text */
-}
-
-.contact-item a:hover {
-    color: var(--accent-red);    /* Changes to brand red on hover */
-    border-radius: 3px;
-}
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+    .slide h2 { font-size: 1.8rem; }
+    .news-article h1 { font-size: 2rem; }
 }
