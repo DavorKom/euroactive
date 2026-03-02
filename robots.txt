@@ -1,12 +1,4 @@
 User-agent: *
-Disallow: /amazonbot/
-Disallow: /applebot-extended/
-Disallow: /bytespider/
-Disallow: /ccbot/
-Disallow: /claudebot/
-Disallow: /google-extended/
-Disallow: /gptbot/
-Disallow: /meta-externalagent/
 Allow: /
 
 Sitemap: https://www.euroactive.hr/sitemap.xml
