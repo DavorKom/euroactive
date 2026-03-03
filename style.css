@@ -25,12 +25,17 @@ a {
     color: inherit;
 }
 
-/* --- ACCESSIBILITY: Focus States --- */
-/* This ensures keyboard users can see where they are navigating */
-a:focus, button:focus, .menu-toggle:focus, .dot:focus {
-    outline: 2px solid var(--accent-red);
-    outline-offset: 2px;
-    border-radius: 2px;
+/* Klasa za "Screen Readers" (Čitače ekrana) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
 /* --- HEADER & NAVIGATION --- */
@@ -57,8 +62,7 @@ header {
 
 .logo img {
     height: 60px; 
-    width: 96px;
-    aspect-ratio: 168 / 105; 
+    width: auto;
 }
 
 .nav-links {
@@ -85,14 +89,6 @@ header {
     font-size: 1.5rem;
     color: var(--primary-blue);
     cursor: pointer;
-    padding: 10px;
-    min-width: 44px;
-    min-height: 44px;
-}
-
-/* --- MAIN LANDMARK --- */
-main {
-    display: block; /* Ensures main is treated as a block element */
 }
 
 /* --- HERO / NEWS CAROUSEL SECTION --- */
@@ -136,6 +132,7 @@ main {
     height: 100%;
     background: rgba(23, 71, 126, 0.5);
     z-index: 1;
+    transition: background 0.3s;
 }
 
 .slide-content {
@@ -171,6 +168,7 @@ main {
     transform: scale(1.05);
 }
 
+/* --- CAROUSEL NAVIGATION ARROWS --- */
 .prev, .next {
     cursor: pointer;
     position: absolute;
@@ -283,8 +281,6 @@ main {
     color: var(--primary-blue);
     transition: transform 0.3s, color 0.3s;
     display: inline-block;
-    min-width: 44px;
-    min-height: 44px;
 }
 
 .social-icons a:hover {
@@ -297,27 +293,143 @@ footer {
     color: var(--white);
     text-align: center;
     padding: 20px 0;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
-/* --- SEO & ACCESSIBILITY HELPER --- */
-.sr-only {
+/* --- NEWS DETAIL PAGE STYLES --- */
+.news-article {
+    padding: 40px 20px; 
+}
+
+.news-article h1 {
+    color: var(--primary-blue);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.news-article p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+.news-article > img {
+    width: 100%; 
+    height: auto; 
+    max-height: 450px; 
+    object-fit: cover; 
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+/* Deljeni stilovi za tekstualne linkove */
+.news-article p a,
+.contact-item a {
+    color: var(--primary-blue);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 0 2px;
+}
+
+.news-article p a:hover,
+.contact-item a:hover {
+    color: var(--accent-red);
+    border-radius: 3px;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.02);
+}
+
+/* --- MODAL --- */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.9); 
+    align-items: center; 
+    justify-content: center; 
+    overflow: auto;
+}
+
+.modal-content {
+    width: auto; 
+    max-width: 95%; 
+    max-height: 90vh; 
+    object-fit: contain; 
+    border-radius: 5px;
+    padding: 10px; 
+}
+
+.close-modal {
     position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2002;
+    transition: 0.3s;
 }
 
-/* --- MODAL & NEWS DETAIL STYLES --- */
-.news-article { padding: 40px 20px; }
-.news-article h1 { color: var(--primary-blue); font-size: 2.5rem; margin-bottom: 20px; }
-.news-article p { margin-bottom: 15px; font-size: 1.1rem; color: var(--text-dark); }
-.news-article > img { width: 100%; height: auto; max-height: 450px; object-fit: cover; border-radius: 8px; margin-bottom: 30px; }
+.close-modal:hover {
+    color: #bbb;
+}
+
+.modal-prev,
+.modal-next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    z-index: 2002;
+}
+
+.modal-next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.modal-prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.modal-prev:hover,
+.modal-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
 
 /* --- MEDIA QUERIES --- */
 @media (max-width: 768px) {
@@ -332,12 +444,25 @@ footer {
         box-shadow: 0 5px 5px rgba(0,0,0,0.1);
         text-align: center;
         padding: 20px 0;
-        z-index: 999; /* Ensure menu sits on top */
     }
 
-    .nav-links.active { display: flex; }
-    .nav-links li { margin: 15px 0; }
-    .menu-toggle { display: block; }
-    .slide h2 { font-size: 1.8rem; }
-    .news-article h1 { font-size: 2rem; }
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 15px 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .slide h2 {
+        font-size: 1.8rem;
+    }
+
+    .news-article h1 {
+        font-size: 2rem; 
+    }
 }
